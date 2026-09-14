@@ -1,4 +1,3 @@
-```markdown
 # Community Attendance & Analytics Platform
 
 **Web & Android Application | Attendance Management | Data Analytics**
@@ -118,4 +117,3 @@ The platform is under active development and supports practical community attend
 ## Contact
 
 [LinkedIn](https://www.linkedin.com/in/tehmoor-bhatti) · [Email](mailto:tehmoor.bhatti@stud.fra-uas.de)
-```
