@@ -1,110 +1,152 @@
+```markdown
 # Community Attendance & Analytics Platform
 
-> **Project showcase:** The source code is maintained privately because the application supports real community operations and processes attendance-related information. This repository contains project documentation only.
+> **Project showcase:** The source code is maintained privately because the application supports real community operations and processes attendance-related information. This repository contains project documentation and anonymized screenshots only.
 
-A role-based web and Android platform for managing attendance, prayers, and event programs across multiple community locations.
+A role-based web and Android platform for managing attendance across prayers, community programs, and events at multiple locations.
 
-Developed as an independent volunteer software project using a shared React Native and Expo codebase with Firebase and Firestore.
+The application was designed and developed as an independent volunteer software project using React Native, Expo, JavaScript, Firebase, and Firestore.
 
 ## Project Overview
 
-The platform replaces fragmented manual attendance workflows with a unified digital system. It supports multiple operational contexts, including individual registration, program administration, tablet-based data entry, and unattended kiosk use.
+The platform replaces fragmented manual attendance processes with a unified digital system. It supports different operational environments, including individual registration, tablet-based data entry, QR-assisted attendance, terminal operation, program administration, and unattended kiosk use.
 
-Locations, organizational groups, user permissions, and event types can be configured independently. Each application mode provides only the functionality required for its workflow while using the same underlying data structure.
+Locations, organizational groups, permissions, event types, and application modes can be configured independently. Each interface provides only the functionality required for its specific workflow while using the same underlying cloud-based data structure.
 
 ## Key Features
 
 | Area | Capabilities |
 |---|---|
-| Attendance management | Records attendance for prayers, programs, and other events |
-| Multiple capture modes | QR-based registration, tablet operation, terminals, and cloud-synchronized entry |
+| Attendance management | Records attendance for prayers, community programs, and other events |
+| Multiple capture modes | Manual registration, QR workflows, tablet operation, terminals, and cloud-synchronized entry |
 | Role-based access | Separate permissions and interfaces for administrators, local operators, and restricted users |
-| Multi-location support | Independently configurable locations and organizational groups |
-| Guest registration | Registration of external participants with required information validation |
-| Live analytics | Real-time statistics and attendance summaries by program, location, and group |
-| Search and filtering | Searchable master views with program, prayer, location, and attendance filters |
-| Data export | Structured spreadsheet exports for reporting and further analysis |
-| Kiosk operation | Device-specific and global reset behavior for shared terminals |
-| Access protection | Authentication, role checks, CAPTCHA validation, and workflow-specific restrictions |
+| Multi-location support | Independent configuration and evaluation of multiple community locations |
+| Program management | Creation, selection, administration, and evaluation of individual programs and events |
+| Analytics | Weekly totals, group distributions, location comparisons, charts, and summary metrics |
+| Filtering | Evaluation by time period, location, program, organizational group, and attendance type |
+| Data export | Structured exports for further processing and reporting |
+| Responsive interfaces | Optimized layouts for desktop, tablet, Android, and kiosk environments |
+| Cloud integration | Centralized data storage and synchronization using Firebase and Firestore |
 
-## System Architecture
+## Selected Screenshots
 
-```mermaid
-flowchart TD
-    W["Web interface"] --> A["Shared React Native and Expo codebase"]
-    M["Android application"] --> A
-    K["Tablet and kiosk modes"] --> A
-    A --> F["Firebase and Firestore"]
-    A --> X["Statistics and spreadsheet exports"]
-```
+The following screenshots provide a selected glimpse into the platform rather than a complete product tour.
 
-The shared application layer keeps business rules and user experience consistent across web, Android, tablet, and kiosk environments. Firestore provides synchronized data access, while application-level permissions control the operations available to each user.
+The full application contains additional administrative, configuration, filtering, user-management, master-data, export, and role-specific operational workflows that are intentionally not shown publicly. This protects internal processes while keeping the showcase focused on the most relevant functionality.
 
-## Technology Stack
+All displayed locations, identifiers, and statistics have been anonymized or replaced with synthetic demonstration data. The QR code shown was temporary and is no longer active.
 
-| Category | Technologies |
+### Attendance Entry
+
+The attendance interface is designed for fast operation on tablets, terminals, and larger displays. It presents the currently active prayer and allows users to continue through a group-specific registration workflow.
+
+![Manual attendance entry](assets/01-attendance-entry.png)
+
+### QR-Based Attendance
+
+The platform can generate temporary QR codes for attendance registration. A manual ID search remains available as an alternative workflow when QR registration is not suitable.
+
+![QR-based attendance](assets/02-qr-attendance.png)
+
+### Attendance Analytics Overview
+
+Administrators can review aggregated attendance figures for a selected calendar week and location. The overview provides a concise breakdown by organizational group while keeping the underlying records centralized.
+
+![Attendance analytics overview](assets/03-attendance-analytics-overview.png)
+
+### Attendance Distribution and Summary Metrics
+
+Detailed analytics visualize attendance across individual prayers. Additional metrics identify averages, highest and lowest attendance values, and changes within the selected evaluation period.
+
+![Attendance analytics chart](assets/04-attendance-analytics-chart.png)
+
+### Program Analytics
+
+Programs and community events can be evaluated independently from regular prayer attendance. Administrators can select an event, review its total attendance, apply filters, and export the corresponding records.
+
+![Program analytics overview](assets/05-program-analytics-overview.png)
+
+### Group and Location Breakdown
+
+The detailed program view compares attendance across organizational groups and participating locations. It combines absolute values, reference totals, percentages, and visual progress indicators in one interface.
+
+![Program location breakdown](assets/06-program-location-breakdown.png)
+
+## Technical Overview
+
+| Category | Technologies and Concepts |
 |---|---|
-| Application | React Native, Expo, React Native Web, JavaScript |
-| Data and backend | Firebase, Firestore |
-| Hosting and delivery | Firebase Hosting, Expo Application Services |
-| Local storage and exports | AsyncStorage, Expo FileSystem, Sharing, XLSX |
-| Development workflow | Git, GitHub, VS Code, Linux/WSL |
+| Application | React Native, Expo, JavaScript |
+| Platforms | Web and Android |
+| Backend | Firebase and Firestore |
+| Data model | Shared cloud-based data structure for locations, users, attendance records, prayers, and programs |
+| Access control | Role-based permissions and application modes |
+| Interfaces | Responsive desktop, tablet, mobile, terminal, and kiosk layouts |
+| Development | Requirements analysis, implementation, testing, debugging, refactoring, and deployment |
+| Workflow | Git and GitHub for version control and iterative development |
 
-## Engineering Focus
+## Architecture and Design Considerations
 
-### Real-Time Data with Controlled Database Usage
+The application was designed around a shared data model that supports several operational contexts without requiring separate systems for each location or workflow.
 
-The application requires current attendance information across several interfaces. Its data flow was refined to preserve live updates while reducing unnecessary Firestore reads and avoiding duplicate subscriptions across application modes.
+Key engineering considerations included:
 
-### Consistent Permissions and Configuration
-
-Available programs, organizational groups, statistics, and administrative functions depend on the active user, location, and application mode. Reusable configuration and validation keep these rules consistent across registration, administration, analytics, and exports.
-
-### Reliable Shared-Device Workflows
-
-Tablet and kiosk environments require predictable behavior after every registration. Device-level and global reset options, protected administration paths, and separated application modes reduce the risk of stale sessions or unintended access.
-
-### Accurate Reporting
-
-Dashboard values, detailed views, and spreadsheet exports must apply the same filters and inclusion rules. These workflows were iteratively tested and aligned to keep displayed statistics and exported records consistent.
+- Reducing unnecessary Firestore reads while maintaining current information
+- Keeping role-specific interfaces simple and focused
+- Supporting multiple locations and organizational structures
+- Maintaining consistent behavior across web, Android, tablet, and kiosk layouts
+- Separating prayer attendance from independent program and event workflows
+- Providing meaningful analytics without exposing individual personal information
+- Handling configuration, filtering, statistics, and exports through a unified system
 
 ## My Contribution
 
-I independently designed and developed the application as a volunteer project, from requirements analysis and data modeling to implementation, testing, optimization, and deployment.
+I independently designed and developed the platform as a volunteer software project.
 
 My responsibilities included:
 
-- Translating real operational workflows into technical requirements
-- Designing the shared web and Android application structure
-- Implementing role-based interfaces and access rules
-- Developing attendance, event, statistics, filtering, and export workflows
-- Integrating Firebase and Firestore
-- Testing desktop, mobile, tablet, and kiosk workflows
-- Debugging, refactoring, performance optimization, and deployment
-
-## Development Approach
-
-AI-assisted workflows support the development process. I define the requirements and expected behavior, review implementation proposals, test changes against real workflows, identify regressions and edge cases, and guide the application through iterative refinement.
-
-Functional validation, architectural decisions, and acceptance of changes remain part of my responsibility.
+- Translating real operational requirements into technical workflows
+- Designing the application structure and user interfaces
+- Implementing the web and Android application
+- Creating the Firestore data model and cloud integration
+- Developing role-based access and administrative functionality
+- Implementing QR, tablet, terminal, and manual attendance workflows
+- Building statistics, filters, dashboards, and export functionality
+- Testing, debugging, refactoring, and deploying the application
+- Iteratively improving the system based on practical use and feedback
 
 ## Privacy and Source Availability
 
-The source code, production configuration, and operational data are intentionally not public.
+The production source code is intentionally not included in this public repository.
 
-This repository does not contain:
+The application supports real organizational processes and may interact with confidential attendance and configuration data. Publishing the complete source could expose internal workflows, data structures, deployment details, or security-relevant implementation information.
 
-- Application source code or environment configuration
-- API credentials or Firebase configuration
-- Real names, attendance records, or organizational identifiers
-- Internal URLs, authentication details, or usable QR codes
+This showcase therefore contains:
 
-Any screenshots published in this showcase will contain anonymized or synthetic data.
+- An overview of the project and its functionality
+- Anonymized screenshots
+- Synthetic demonstration values
+- A summary of the technologies and engineering decisions
+
+It does not contain:
+
+- Production source code
+- Personal attendance records
+- Active QR credentials
+- API keys or environment variables
+- Firebase configuration
+- Internal access information
+
+Further technical details can be discussed upon request without disclosing confidential data or production credentials.
 
 ## Project Status
 
-This is an ongoing volunteer project that is maintained and refined as operational requirements evolve.
+The platform is under active development and supports practical community attendance and program-management workflows. Features are continuously tested, refined, and extended based on operational requirements.
+
 
 ## Contact
 
-[LinkedIn](https://www.linkedin.com/in/tehmoor-bhatti) · [GitHub](https://github.com/Tehmoor23)
+For questions about the project or working student opportunities, feel free to contact me:
+
+[LinkedIn](https://www.linkedin.com/in/tehmoor-bhatti) · [Email](mailto:tehmoor.bhatti@stud.fra-uas.de)
+```
